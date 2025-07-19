@@ -7,3 +7,6 @@ go + gorm + gin + mysql
 
 ```shell
 go mod tidy
+go build
+###or
+go run main.go
