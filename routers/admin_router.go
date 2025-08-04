@@ -6,7 +6,7 @@ import (
 )
 
 func RegisterAdminRouter(r *gin.Engine) {
-	AdminGroup := r.Group("/admin")
+	AdminGroup := r.Group("/api/admin")
 	{
 		AdminGroup.GET("/info", controller.GetUserListWithPagination)
 		AdminGroup.POST("/updateUser", controller.UpdateUser)

@@ -6,7 +6,7 @@ import (
 )
 
 func RegisterQueryRouter(r *gin.Engine) {
-	QueryGroup := r.Group("/query")
+	QueryGroup := r.Group("/api/query")
 	{
 		QueryGroup.POST("/user", controller.GetUserList)
 	}

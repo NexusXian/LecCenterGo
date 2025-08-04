@@ -6,7 +6,7 @@ import (
 )
 
 func RegisterUserRouter(r *gin.Engine) {
-	UserGroup := r.Group("/user")
+	UserGroup := r.Group("/api/user")
 	{
 		UserGroup.POST("/login", controller.LoginHandler)
 		UserGroup.POST("/register", controller.RegisterHandler)

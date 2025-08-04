@@ -1,0 +1,7 @@
+mysql:
+  username: "root"
+  password: "********"
+  host: "localhost"
+  port: 3306  # 这里去掉引号，使用数字类型
+  dbname: "lecdb"
+  charset: "utf8mb4"

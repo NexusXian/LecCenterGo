@@ -6,7 +6,7 @@ import (
 )
 
 func RegisterRankRouter(r *gin.Engine) {
-	RankGroup := r.Group("/rank")
+	RankGroup := r.Group("/api/rank")
 	{
 		RankGroup.GET("/board", controller.GetTopFiveLeaderboard)
 		RankGroup.GET("/table", controller.GetUserListWithPagination)

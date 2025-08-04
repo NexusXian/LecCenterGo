@@ -6,7 +6,7 @@ import (
 )
 
 func RegisterClockRouter(router *gin.Engine) {
-	ClockGroup := router.Group("")
+	ClockGroup := router.Group("/api")
 	{
 		ClockGroup.POST("/checkin", controller.CombinedCheckinHandler)
 		ClockGroup.POST("/checkin/records", controller.GetRecordList)

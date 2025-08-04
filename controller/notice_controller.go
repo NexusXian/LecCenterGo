@@ -6,6 +6,7 @@ import (
 	"errors"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
+	"log"
 	"net/http"
 	"strconv"
 )
@@ -63,7 +64,6 @@ func GetNotice(c *gin.Context) {
 
 	// 查询通知
 	result := dao.DB.Where("notice_id = ?", noticeID).First(&notice)
-
 	if result.Error != nil {
 		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
 			c.JSON(http.StatusNotFound, gin.H{
@@ -78,6 +78,17 @@ func GetNotice(c *gin.Context) {
 			})
 		}
 		return
+	}
+
+	// 根据通知中的Username查询用户的Avatar
+	var user models.User
+	userResult := dao.DB.Where("username = ?", notice.Username).First(&user)
+	if userResult.Error == nil {
+		// 如果找到用户，更新通知中的Avatar字段
+		notice.Avatar = user.Avatar
+	} else if !errors.Is(userResult.Error, gorm.ErrRecordNotFound) {
+		// 如果是其他错误，记录但不中断
+		log.Printf("查询用户头像失败: %v", userResult.Error)
 	}
 
 	// 返回结果

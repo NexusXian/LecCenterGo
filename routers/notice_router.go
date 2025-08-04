@@ -6,7 +6,7 @@ import (
 )
 
 func RegisterNoticeRouter(r *gin.Engine) {
-	NoticeGroup := r.Group("/notice")
+	NoticeGroup := r.Group("/api/notice")
 	{
 		NoticeGroup.GET("/list", controller.GetNoticeList)
 		NoticeGroup.GET("/:id", controller.GetNotice)

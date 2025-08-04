@@ -6,7 +6,7 @@ import (
 )
 
 func RegisterFileLoadRouter(router *gin.Engine) {
-	LoadFile := router.Group("/file")
+	LoadFile := router.Group("/api/file")
 	{
 		LoadFile.POST("/avatar", controller.UploadAvatars)
 	}

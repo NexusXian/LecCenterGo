@@ -6,6 +6,6 @@ import (
 )
 
 func RegisterRecordRouter(r *gin.Engine) {
-	r.GET("/record/list", controller.GetAttendanceList)
-	r.GET("/record/attendance/day", controller.GetAttendanceByDate)
+	r.GET("/api/record/list", controller.GetAttendanceList)
+	r.GET("/api/record/attendance/day", controller.GetAttendanceByDate)
 }

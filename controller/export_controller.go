@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/xuri/excelize/v2"
 	"net/http"
+	"net/url"
 	"time"
 )
 
@@ -112,9 +113,19 @@ func ExportDayData(c *gin.Context) {
 	f.SetActiveSheet(index)
 
 	// --- 设置 HTTP 响应头，通知浏览器下载 Excel 文件 ---
+	// 1. 原始文件名（包含中文）
 	fileName := fmt.Sprintf("打卡记录_%s.xlsx", formattedDate)
+	// 2. 编码中文文件名（关键：处理非ASCII字符）
+	encodedFileName := url.QueryEscape(fileName)
+
+	// 3. 设置响应头（按标准格式传递）
 	c.Header("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-	c.Header("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s\"", fileName))
+	// 核心：使用filename*=UTF-8''格式传递编码后的文件名
+	c.Header("Content-Disposition", fmt.Sprintf(
+		"attachment; filename=\"%s\"; filename*=UTF-8''%s",
+		fileName,        // 兼容旧浏览器（可选）
+		encodedFileName, // 现代浏览器优先解析，确保中文正常显示
+	))
 	c.Header("Content-Transfer-Encoding", "binary")
 	c.Header("Cache-Control", "no-cache") // 避免浏览器缓存
 
